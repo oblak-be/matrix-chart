@@ -1,0 +1,4 @@
+include:
+  - project: 'oblak.be/continuous-integration'
+    file: 'helm-chart.yml'
+
