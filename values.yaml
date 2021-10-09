@@ -246,6 +246,9 @@ ingress:
 postgresql:
   # Whether to deploy the stable/postgresql chart with this chart. If disabled, make sure PostgreSQL is available at the hostname below and credentials are configured below
   enabled: true
+  image:
+    tag: 9.6
+  storageClass: ""
 
   username: matrix
   password: matrix
@@ -277,7 +280,7 @@ postgresql:
 synapse:
   image:
     repository: "matrixdotorg/synapse"
-    tag: v1.22.1
+    tag: v1.28.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -312,7 +315,11 @@ synapse:
     # Port to listen on for metrics scraping
     port: 9092
     annotations: true
-
+  saml:
+    provider: "idp.example.com"
+    realm: "example.com"
+    tls_cert: {}
+    tls_key: {}
 
 # Element (formerly Riot Web) client configuration
 riot:
