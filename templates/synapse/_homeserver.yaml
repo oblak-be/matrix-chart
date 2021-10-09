@@ -1367,6 +1367,7 @@ saml2_config:
   # `sp_config` is the configuration for the pysaml2 Service Provider.
   # See pysaml2 docs for format of config.
   #
+  enable: true
   # Default values will be used for the 'entityid' and 'service' settings,
   # so it is not normally necessary to specify them unless you need to
   # override them.
@@ -1409,7 +1410,7 @@ saml2_config:
   # Instead of putting the config inline as above, you can specify a
   # separate pysaml2 configuration file:
   #
-  #config_path: "CONFDIR/sp_conf.py"
+  config_path: "/config-saml/sp_conf.py"
 
   # The lifetime of a SAML session. This defines how long a user has to
   # complete the authentication process, if allow_unsolicited is unset.
@@ -1641,8 +1642,8 @@ sso:
     #
     # By default, this list is empty.
     #
-    #client_whitelist:
-    #  - https://riot.im/develop
+    client_whitelist:
+      - "https://chat.staging.oblak.be/"
     #  - https://my.custom.client/
 
     # Directory in which Synapse will try to find the template files below.
@@ -1766,13 +1767,13 @@ sso:
 password_config:
    # Uncomment to disable password login
    #
-   #enabled: false
+   enabled: true
 
    # Uncomment to disable authentication against the local password
    # database. This is ignored if `enabled` is false, and is only useful
    # if you have other password_providers.
    #
-   #localdb_enabled: false
+   localdb_enabled: true
 
    # Uncomment and change to a secret random string for extra security.
    # DO NOT CHANGE THIS AFTER INITIAL SETUP!

@@ -1,3 +1,4 @@
+---
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -39,3 +40,76 @@ data:
     root:
       level: {{ .Values.matrix.logging.rootLogLevel }}
       handlers: [console]
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "matrix.fullname" . }}-synapse-config-saml
+  labels:
+{{ include "matrix.labels" . | nindent 4}}
+{{ include "matrix.synapse.labels" . | nindent 4}}
+data:
+  sp_conf.py: |
+    import saml2
+    from saml2.saml import NAME_FORMAT_URI
+    
+    BASE = "https://{{ .Values.ingress.hosts.synapse }}/"
+    
+    CONFIG = {
+        "entityid": "matrix",
+        "description": "Matrix",
+        "service": {
+            "sp": {
+                "name": "matrix-login",
+                "endpoints": {
+                    "single_sign_on_service": [
+                        (BASE + "_matrix/saml2/authn_response", saml2.BINDING_HTTP_POST)
+                    ],
+                    "assertion_consumer_service": [
+                        (BASE + "_matrix/saml2/authn_response", saml2.BINDING_HTTP_POST)
+                    ],
+                    "single_logout_service": [
+                        (BASE + "_matrix/saml2/logout", saml2.BINDING_HTTP_POST)
+                    ],
+                },
+                "required_attributes": ["uid"],
+                "optional_attributes": ["displayName"],
+                "authn_requests_signed": True,
+                "want_assertions_signed": True,
+                "sign_assertion": True,
+                "sign_response": True,
+            }
+        },
+        "debug": 0,
+        "key_file": "/saml-keys/tls.key",
+        "cert_file": "/saml-keys/tls.crt",
+        "encryption_keypairs": [
+            {"key_file": "/saml-keys/tls.key", "cert_file": "/saml-keys/tls.crt"}
+        ],
+        "attribute_map_dir": "/config-saml-map",
+        "metadata": {
+            "remote": [
+                {
+                    "url": "https://{{ .Values.synapse.saml.provider }}/auth/realms/{{ .Values.synapse.saml.realm }}/protocol/saml/descriptor"
+                }
+            ]
+        },
+        # Make sure to have xmlsec1 installed on your host(s)!
+        "xmlsec_binary": "/usr/bin/xmlsec1",
+        "name_form": NAME_FORMAT_URI,
+    }
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "matrix.fullname" . }}-synapse-config-saml-map
+  labels:
+{{ include "matrix.labels" . | nindent 4}}
+{{ include "matrix.synapse.labels" . | nindent 4}}
+data:
+  map.py: |
+    MAP = {
+        "identifier": "urn:oasis:names:tc:SAML:2.0:attrname-format:uri",
+        "fro": {"uid": "uid", "displayName": "displayName"},
+        "to": {"uid": "uid", "displayName": "displayName"},
+    }

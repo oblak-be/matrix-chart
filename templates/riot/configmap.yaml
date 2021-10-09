@@ -10,7 +10,11 @@ data:
     {
       "default_server_config": {
         "m.homeserver": {
-          "base_url": {{ include "matrix.baseUrl" . | quote }}
+          "base_url": {{ include "matrix.baseUrl" . | quote }},
+          "server_name": {{ .Values.matrix.serverName | quote }}
+        },
+          "m.identity_server": {
+            "base_url": "https://matrix.org"
         }
       },
       "brand": {{ .Values.riot.branding.brand | quote }},
@@ -25,6 +29,9 @@ data:
         "authFooterLinks": {{ .Values.riot.branding.authFooterLinks | toJson }},
         {{- end }}
       },
+      "disable_custom_urls": false,
+      "disable_guests": false,
+      "disable_3pid_login": false,
       {{- if .Values.riot.integrations.enabled }}
       "integrations_ui_url": {{ .Values.riot.integrations.ui | quote }},
       "integrations_rest_url": {{ .Values.riot.integrations.api | quote }},
