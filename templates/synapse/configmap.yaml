@@ -40,6 +40,7 @@ data:
     root:
       level: {{ .Values.matrix.logging.rootLogLevel }}
       handlers: [console]
+{{- if .Values.synapse.saml.enabled }}
 ---
 apiVersion: v1
 kind: ConfigMap
@@ -113,3 +114,4 @@ data:
         "fro": {"uid": "uid", "displayName": "displayName"},
         "to": {"uid": "uid", "displayName": "displayName"},
     }
+{{- end }}

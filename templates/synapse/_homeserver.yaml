@@ -1363,11 +1363,17 @@ suppress_key_server_warning: {{ .Values.matrix.security.supressKeyServerWarning 
 # the IdP to use an ACS location of
 # https://<server>:<port>/_matrix/saml2/authn_response.
 #
+{{- if .Values.synapse.saml.enabled }}
+saml2_config:
+  enable: true
+  config_path: "/config-saml/sp_conf.py"
+{{- else }}
 saml2_config:
   # `sp_config` is the configuration for the pysaml2 Service Provider.
   # See pysaml2 docs for format of config.
   #
-  enable: true
+  enable: false
+{{- end }}
   # Default values will be used for the 'entityid' and 'service' settings,
   # so it is not normally necessary to specify them unless you need to
   # override them.
@@ -1410,7 +1416,7 @@ saml2_config:
   # Instead of putting the config inline as above, you can specify a
   # separate pysaml2 configuration file:
   #
-  config_path: "/config-saml/sp_conf.py"
+  #config_path: "/config-saml/sp_conf.py"
 
   # The lifetime of a SAML session. This defines how long a user has to
   # complete the authentication process, if allow_unsolicited is unset.

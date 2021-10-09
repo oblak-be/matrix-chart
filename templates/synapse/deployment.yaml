@@ -55,10 +55,6 @@ spec:
               mountPath: /data
             - name: signing-key
               mountPath: /data/keys
-            - name: synapse-config-saml
-              mountPath: /config-saml
-            - name: synapse-config-saml-map
-              mountPath: /config-saml-map
       {{- end }} {{/* end if .Release.IsInstall */}}
       containers:
         - name: "synapse"
@@ -94,12 +90,14 @@ spec:
               mountPath: /data/uploads
             - name: tmp
               mountPath: /tmp
+            {{- if .Values.synapse.saml.enabled }}
             - name: synapse-config-saml
               mountPath: /config-saml
             - name: synapse-config-saml-map
               mountPath: /config-saml-map
             - name: synapse-saml-keys
               mountPath: /saml-keys
+            {{- end }}
           readinessProbe:
             httpGet:
               path: /_matrix/static/
@@ -141,6 +139,7 @@ spec:
         - name: media-store
           persistentVolumeClaim:
             claimName: {{ include "matrix.fullname" . }}-media-store
+        {{- if .Values.synapse.saml.enabled }}
         - name: synapse-config-saml
           configMap:
             name: {{ include "matrix.fullname" . }}-synapse-config-saml
@@ -150,6 +149,7 @@ spec:
         - name: synapse-saml-keys
           secret:
             secretName: {{ include "matrix.fullname" . }}-synapse-saml-keys
+        {{- end }}
         {{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled }}
         - name: bridges
           persistentVolumeClaim:

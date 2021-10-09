@@ -316,10 +316,13 @@ synapse:
     port: 9092
     annotations: true
   saml:
+    enabled: false
     provider: "idp.example.com"
     realm: "example.com"
-    tls_cert: {}
-    tls_key: {}
+    tls_cert: |-
+      "--"
+    tls_key: |-
+      "--"
 
 # Element (formerly Riot Web) client configuration
 riot:
