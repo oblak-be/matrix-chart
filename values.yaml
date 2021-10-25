@@ -496,6 +496,8 @@ mail:
     requireTransportSecurity: true
 
 bridges:
+  slack:
+    enabled: false
   irc:
     # Set to true to enable the IRC bridge
     enabled: false

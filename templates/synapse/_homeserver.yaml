@@ -48,20 +48,20 @@ use_presence: {{ .Values.matrix.presence }}
 # API, so this setting is of limited value if federation is enabled on
 # the server.
 #
-#require_auth_for_profile_requests: true
+require_auth_for_profile_requests: true
 
 # Uncomment to require a user to share a room with another user in order
 # to retrieve their profile information. Only checked on Client-Server
 # requests. Profile requests from other servers should be checked by the
 # requesting server. Defaults to 'false'.
 #
-#limit_profile_requests_to_users_who_share_rooms: true
+limit_profile_requests_to_users_who_share_rooms: true
 
 # If set to 'true', removes the need for authentication to access the server's
 # public rooms directory through the client API, meaning that anyone can
 # query the room directory. Defaults to 'false'.
 #
-#allow_public_rooms_without_auth: true
+allow_public_rooms_without_auth: false
 
 # If set to 'true', allows any other homeserver to fetch the server's public
 # rooms directory via federation. Defaults to 'false'.
@@ -332,7 +332,7 @@ limit_remote_rooms:
 # Whether to require a user to be in the room to add an alias to it.
 # Defaults to 'true'.
 #
-#require_membership_for_aliases: false
+require_membership_for_aliases: true
 
 # Whether to allow per-room membership profiles through the send of membership
 # events with profile information that differ from the target's global profile.
@@ -978,7 +978,7 @@ registrations_require_3pid:
 # Explicitly disable asking for MSISDNs from the registration
 # flow (overrides registrations_require_3pid if MSISDNs are set as required)
 #
-#disable_msisdn_registration: true
+disable_msisdn_registration: false
 
 # Mandate that users are only allowed to associate certain formats of
 # 3PIDs with accounts on this server.
@@ -993,7 +993,7 @@ registrations_require_3pid:
 
 # Enable 3PIDs lookup requests to identity servers from this server.
 #
-#enable_3pid_lookup: true
+enable_3pid_lookup: true
 
 # If set, allows registration of standard or admin accounts by anyone who
 # has the shared secret, even if registration is otherwise disabled.
@@ -1221,7 +1221,7 @@ report_stats: {{ .Values.matrix.telemetry }}
 
 # A list of application service config files to use
 #
-{{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled }}
+{{- if or .Values.bridges.whatsapp.enabled .Values.bridges.discord.enabled .Values.bridges.irc.enabled .Values.bridges.slack.enabled }}
 app_service_config_files:
 {{- end }}
 {{- if .Values.bridges.whatsapp.enabled }}
@@ -1232,6 +1232,9 @@ app_service_config_files:
 {{- end }}
 {{- if .Values.bridges.irc.enabled }}
   - "/bridges/irc.yaml"
+{{- end }}
+{{- if .Values.bridges.slack.enabled }}
+  - "/data/keys/slack-registration.yaml"
 {{- end }}
 
 # Uncomment to enable tracking of application service IP addresses. Implicitly
