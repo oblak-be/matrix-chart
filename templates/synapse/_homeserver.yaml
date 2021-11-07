@@ -1652,7 +1652,7 @@ sso:
     # By default, this list is empty.
     #
     client_whitelist:
-      - "https://chat.staging.oblak.be/"
+      - "https://{{ .Values.matrix.ingress.hosts.riot }}/"
     #  - https://my.custom.client/
 
     # Directory in which Synapse will try to find the template files below.
