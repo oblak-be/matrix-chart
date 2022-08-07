@@ -12,9 +12,6 @@ data:
         "m.homeserver": {
           "base_url": {{ include "matrix.baseUrl" . | quote }},
           "server_name": {{ .Values.matrix.serverName | quote }}
-        },
-          "m.identity_server": {
-            "base_url": "https://matrix.org"
         }
       },
       "brand": {{ .Values.riot.branding.brand | quote }},
@@ -29,8 +26,8 @@ data:
         "authFooterLinks": {{ .Values.riot.branding.authFooterLinks | toJson }},
         {{- end }}
       },
-      "disable_custom_urls": false,
-      "disable_guests": false,
+      "disable_custom_urls": true,
+      "disable_guests": true,
       "disable_3pid_login": false,
       {{- if .Values.riot.integrations.enabled }}
       "integrations_ui_url": {{ .Values.riot.integrations.ui | quote }},
@@ -98,37 +95,13 @@ data:
       location / {
           root   /usr/share/nginx/html;
           index  index.html index.htm;
+          add_header Access-Control-Allow-Origin: 'https://{{ .Values.matrix.serverName }}';
+          add_header Access-Control-Allow-Origin: 'https://www.{{ .Values.matrix.serverName }}';
+          add_header Access-Control-Allow-Origin: 'https://matrix.{{ .Values.matrix.serverName }}';
       }
 
-      #error_page  404              /404.html;
-
-      # redirect server error pages to the static page /50x.html
-      #
       error_page   500 502 503 504  /50x.html;
       location = /50x.html {
           root   /usr/share/nginx/html;
       }
-
-      # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-      #
-      #location ~ \.php$ {
-      #    proxy_pass   http://127.0.0.1;
-      #}
-
-      # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-      #
-      #location ~ \.php$ {
-      #    root           html;
-      #    fastcgi_pass   127.0.0.1:9000;
-      #    fastcgi_index  index.php;
-      #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-      #    include        fastcgi_params;
-      #}
-
-      # deny access to .htaccess files, if Apache's document root
-      # concurs with nginx's one
-      #
-      #location ~ /\.ht {
-      #    deny  all;
-      #}
     }
