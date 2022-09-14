@@ -247,7 +247,7 @@ postgresql:
   # Whether to deploy the stable/postgresql chart with this chart. If disabled, make sure PostgreSQL is available at the hostname below and credentials are configured below
   enabled: true
   image:
-    tag: 9.6
+    tag: 10
   storageClass: ""
 
   username: matrix
@@ -280,7 +280,7 @@ postgresql:
 synapse:
   image:
     repository: "matrixdotorg/synapse"
-    tag: v1.49.0
+    tag: v1.55.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
