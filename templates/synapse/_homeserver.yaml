@@ -909,6 +909,8 @@ turn_allow_guests: {{ .Values.coturn.allowGuests }}
 #
 enable_registration: {{ .Values.matrix.registration.enabled }}
 
+enable_registration_without_verification: {{ .Values.matrix.registration.enable_registration_without_verification }}
+
 # Optional account validity configuration. This allows for accounts to be denied
 # any request after a given period.
 #

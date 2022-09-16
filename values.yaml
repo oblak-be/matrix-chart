@@ -93,6 +93,9 @@ matrix:
     autoJoinRooms: []
     # - "#welcome:example.com"
 
+    # see: https://matrix-org.github.io/synapse/develop/upgrade.html#upgrading-to-v1560
+    enable_registration_without_verification: false
+
   # Settings for the URL preview crawler
   urlPreviews:
     # Enable URL previews.
