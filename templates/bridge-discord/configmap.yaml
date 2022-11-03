@@ -92,16 +92,17 @@ data:
       # Pattern for the ghosts username, available is :username, :tag and :id
       usernamePattern: {{ .Values.bridges.discord.users.username | quote }}
   registration.yaml: |
-    id: appservice-discord
+    id: discord-bridge
     as_token: "{{ include "matrix.discord.as_token" . }}"
     hs_token: "{{ include "matrix.discord.hs_token" . }}"
     namespaces:
       users:
         - exclusive: true
-          regex: '^@_discord_.*'
+          regex: '@_discord_.*'
+      rooms: []
       aliases:
         - exclusive: true
-          regex: '^#_discord_.*'
+          regex: '#_discord_.*'
     url: "http://{{ include "matrix.fullname" . }}-bridge-discord:{{ .Values.bridges.discord.service.port }}"
     sender_localpart: _discord_bot
     rate_limited: false
