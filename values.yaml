@@ -553,10 +553,10 @@ bridges:
     #        * - All Matrix users
     #   domain - All users on that homeserver
     #     mxid - Specific user
-    permissions:
-      "*": relaybot
-      "example.com": user
-      "@admin:example.com": admin
+    permissions: {}
+    #  "*": relaybot
+    #  "example.com": user
+    #  "@admin:example.com": admin
 
     # WhatsApp server connection settings
     connection:
