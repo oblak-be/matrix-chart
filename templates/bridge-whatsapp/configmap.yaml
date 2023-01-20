@@ -140,7 +140,7 @@ data:
       #     mxid - Specific user
       permissions:
         {{- range $key, $val := .Values.bridges.whatsapp.permissions }}
-        {{ $key | quote }}:{{ $val }}
+        {{ $key | quote }}: {{ $val }}
         {{- end }}
 
       relaybot:
