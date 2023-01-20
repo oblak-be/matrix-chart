@@ -555,6 +555,8 @@ bridges:
     #     mxid - Specific user
     permissions:
       "*": relaybot
+      "example.com": user
+      "@admin:example.com": admin
 
     # WhatsApp server connection settings
     connection:
