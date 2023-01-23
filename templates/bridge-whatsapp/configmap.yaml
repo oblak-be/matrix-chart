@@ -53,6 +53,17 @@ data:
 
     # Bridge config
     bridge:
+      encryption:
+        allow: true
+        default: true
+        appservice: false
+        require: false
+        allow_key_sharing: false
+        verification_levels:
+          receive: unverified
+          send: unverified
+          share: cross-signed-tofu
+
       # Localpart template of MXIDs for WhatsApp users.
       # {{ "{{.}}" }} is replaced with the phone number of the WhatsApp user.
       username_template: {{ .Values.bridges.whatsapp.users.username | quote }}
