@@ -250,7 +250,7 @@ postgresql:
   # Whether to deploy the stable/postgresql chart with this chart. If disabled, make sure PostgreSQL is available at the hostname below and credentials are configured below
   enabled: true
   image:
-    tag: 10
+    tag: 14
   storageClass: ""
 
   username: matrix
@@ -283,7 +283,7 @@ postgresql:
 synapse:
   image:
     repository: "matrixdotorg/synapse"
-    tag: v1.55.0
+    tag: v1.98.0
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -447,8 +447,8 @@ coturn:
     type: ClusterIP
 
   image:
-    repository: "instrumentisto/coturn"
-    tag: "4.5.1.3"
+    repository: "coturn/coturn"
+    tag: "4.6.2"
     pullPolicy: IfNotPresent
   replicaCount: 1
   resources: {}
@@ -474,7 +474,7 @@ mail:
     enabled: true
     image:
       repository: "devture/exim-relay"
-      tag: "4.93.1-r0"
+      tag: "4.94.2-r0-4"
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
@@ -614,7 +614,7 @@ bridges:
 
     image:
       repository: "dock.mau.dev/tulir/mautrix-whatsapp"
-      tag: "latest"
+      tag: "v0.10.5"
       pullPolicy: Always
     replicaCount: 1
     resources: {}

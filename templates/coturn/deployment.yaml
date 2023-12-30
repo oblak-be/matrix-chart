@@ -58,11 +58,13 @@ spec:
             - name: var-tmp
               mountPath: /var/tmp
           securityContext:
-            capabilities:
-              drop:
-                - ALL
             readOnlyRootFilesystem: true
             allowPrivilegeEscalation: false
+# This prevents newer coturn versions from starting,
+# should figure out which capabilities are necessary for starting turnserver
+#            capabilities:
+#              drop:
+#                - ALL
           {{- with .Values.coturn.resources }}
           resources:
             {{- toYaml . | nindent 12 }}
