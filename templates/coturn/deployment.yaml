@@ -38,7 +38,6 @@ spec:
         - name: "coturn"
           image: "{{ .Values.coturn.image.repository }}:{{ .Values.coturn.image.tag }}"
           imagePullPolicy: {{ .Values.coturn.image.pullPolicy }}
-          args: ["-c", "/turnserver.conf"]
           ports:
             - name: turn-3478
               containerPort: 3478
@@ -53,7 +52,7 @@ spec:
           {{- end }}
           volumeMounts:
             - name: coturn-config
-              mountPath: /turnserver.conf
+              mountPath: /etc/coturn/turnserver.conf
               subPath: turnserver.conf
               readOnly: true
             - name: var-tmp
