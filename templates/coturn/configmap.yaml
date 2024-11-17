@@ -12,6 +12,22 @@ data:
     static-auth-secret={{ include "matrix.coturn.sharedSecret" . }}
     realm=turn.{{ .Values.matrix.serverName }}
 
+    {{- if .Values.coturn.listeningIps }}
+    {{- range .Values.coturn.listeningIps }}
+    listening-ip={{ . }}
+    {{- end }}
+    {{- end }}
+    {{- if .Values.coturn.relayIps }}
+    {{- range .Values.coturn.relayIps }}
+    relay-ip={{ . }}
+    {{- end }}
+    {{- end }}
+
+    {{- if .Values.coturn.debug }}
+    verbose
+    log-binding
+    {{- end }}
+
     min-port={{ .Values.coturn.ports.from }}
     max-port={{ .Values.coturn.ports.to }}
 

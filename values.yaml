@@ -326,6 +326,7 @@ synapse:
       "--"
     tls_key: |-
       "--"
+  passwordConfigEnabled: true
 
 # Element (formerly Riot Web) client configuration
 riot:
@@ -430,6 +431,12 @@ coturn:
   # Shared secret for communication between Synapse and Coturn.
   # Optional, will be auto-generated if not overridden here.
   sharedSecret: ""
+
+  listeningIps: []
+
+  relayIps: []
+
+  debug: false
 
   # UDP port range for TURN connections
   ports:
