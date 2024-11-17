@@ -1778,7 +1778,7 @@ sso:
 password_config:
    # Uncomment to disable password login
    #
-   enabled: true
+   enabled: {{ .Values.matrix.passwordConfigEnabled }}
 
    # Uncomment to disable authentication against the local password
    # database. This is ignored if `enabled` is false, and is only useful
