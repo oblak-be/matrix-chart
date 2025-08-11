@@ -250,7 +250,7 @@ postgresql:
   # Whether to deploy the stable/postgresql chart with this chart. If disabled, make sure PostgreSQL is available at the hostname below and credentials are configured below
   enabled: true
   image:
-    tag: 14
+    tag: 17
   storageClass: ""
 
   username: matrix
@@ -283,7 +283,7 @@ postgresql:
 synapse:
   image:
     repository: "matrixdotorg/synapse"
-    tag: v1.98.0
+    tag: v1.135.2
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -389,7 +389,7 @@ riot:
   # Element Kubernetes resource settings
   image:
     repository: "vectorim/element-web"
-    tag: v1.11.2
+    tag: v1.11.109
     pullPolicy: IfNotPresent
   service:
     type: ClusterIP
@@ -455,7 +455,7 @@ coturn:
 
   image:
     repository: "coturn/coturn"
-    tag: "4.6.2"
+    tag: "4.7.0"
     pullPolicy: IfNotPresent
   replicaCount: 1
   resources: {}
@@ -481,7 +481,7 @@ mail:
     enabled: true
     image:
       repository: "devture/exim-relay"
-      tag: "4.94.2-r0-4"
+      tag: "4.98-r0-4"
       pullPolicy: IfNotPresent
     service:
       type: ClusterIP
@@ -533,7 +533,7 @@ bridges:
 
     image:
       repository: "matrixdotorg/matrix-appservice-irc"
-      tag: "release-0.22.0-rc1"
+      tag: "release-3.0.5"
       pullPolicy: IfNotPresent
     replicaCount: 1
     resources: {}
@@ -620,8 +620,8 @@ bridges:
       storageClass: ""
 
     image:
-      repository: "dock.mau.dev/tulir/mautrix-whatsapp"
-      tag: "v0.10.5"
+      repository: "dock.mau.dev/mautrix/whatsapp"
+      tag: "v0.12.3"
       pullPolicy: Always
     replicaCount: 1
     resources: {}
@@ -686,8 +686,8 @@ bridges:
       storageClass: ""
 
     image:
-      repository: "halfshot/matrix-appservice-discord"
-      tag: "latest"
+      repository: "dock.mau.dev/mautrix/discord"
+      tag: "v0.7.5"
       pullPolicy: Always
     replicaCount: 1
     resources: {}
